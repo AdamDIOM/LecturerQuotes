@@ -8,6 +8,16 @@
     margin:0;
 }
 
+.lecturerButton:hover{
+    background-color:hotpink;
+}
+.lecturerButton:focus{
+    background-color: pink;
+}
+.lecturerButton:active{
+    background-color:plum;
+}
+
 .lecturerButton{
     width:90%;
     height:10vh;
@@ -18,3 +28,12 @@
 .lecturerCol{
     padding-top:10px;
 }
+
+.textInput{
+    width:95%;
+    margin:10px;
+    height: 10vh;
+    font-size:30px;
+    text-align:center;
+}
+
