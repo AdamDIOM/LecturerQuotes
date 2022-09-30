@@ -4,7 +4,7 @@ import "./Main.css";
 
 export default function Main(){
     const d = new Date();
-    const date = (d.getDay() < 10 ? "0" + d.getDay() : d.getDay()) + "" + (d.getMonth() < 10 ? "0" + d.getMonth() : d.getMonth()) + "" + d.getFullYear();
+    const date = (d.getDay() < 10 ? "0" + d.getDay() : d.getDay()) + "/" + (d.getMonth() < 10 ? "0" + d.getMonth() : d.getMonth()) + "/" + d.getFullYear();
 
     const [lecturer, setLecturer] = useState("Select Lecturer...");
     const [quote, setQuote] = useState("Enter Quote");
