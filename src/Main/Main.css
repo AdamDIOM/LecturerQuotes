@@ -7,3 +7,14 @@
     max-width:100vw;
     margin:0;
 }
+
+.lecturerButton{
+    width:90%;
+    height:10vh;
+    background-color:pink;
+    border-color:hotpink;
+}
+
+.lecturerCol{
+    padding-top:10px;
+}
