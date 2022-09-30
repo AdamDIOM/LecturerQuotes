@@ -1,0 +1,22 @@
+.footer{
+    background-color: hotpink;
+    color:antiquewhite;
+    height:100%;
+    height:7vh;
+    /* padding:0px 15px 0px 15px; */
+    text-align: center;
+    width:100%;
+    margin:0;
+}
+
+.footerCol, .highlightCol{
+    padding: 1vw;
+}
+
+.highlightCol{
+    background-color:plum;
+}
+
+a{
+    color:antiquewhite;
+}
