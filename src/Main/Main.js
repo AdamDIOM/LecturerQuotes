@@ -1,50 +1,97 @@
 import { useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Dropdown, Form, Row } from "react-bootstrap";
 import "./Main.css";
 
 export default function Main(){
     const d = new Date();
-    const date = (d.getDay() < 10 ? "0" + d.getDay() : d.getDay()) + "/" + (d.getMonth() < 10 ? "0" + d.getMonth() : d.getMonth()) + "/" + d.getFullYear();
+    const date = d.getFullYear() + "-" + (d.getMonth() < 9 ? "0" + (d.getMonth()+1) : d.getMonth()+1) + "-" + (d.getDate() < 10 ? "0" + d.getDate() : d.getDate());
 
-    const [lecturer, setLecturer] = useState("Select Lecturer...");
-    const [quote, setQuote] = useState("Enter Quote");
+    const DEF_LECTURER = "Select Lecturer...";
+    const DEF_QUOTE = "Enter Quote";
+    const [lecturer, setLecturer] = useState(DEF_LECTURER);
+    const [quote, setQuote] = useState(DEF_QUOTE);
+
+    const [dateDisplay, setDateDisplay] = useState(date);
+    const [customDate, setCustomDate] = useState();
+
+    const [selectedDate, setSelectedDate] = useState(date);
 
     const lecturers = ["Kostadin", "Adi", "Ali", "Vahab"]
 
     async function PingTwilio(quote, lecturer, date){
-        alert(quote + lecturer + date);
+        
+        // alert(quote + lecturer + date);
 
-        await fetch(`https://lecturerquotes-6778.twil.io/quote?quote=${quote}&lecturer=${lecturer}&date=${date}`, {
-            method: 'POST', // *GET, POST, PUT, DELETE, etc.
-            mode: 'no-cors', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            }
-          });
+        if(lecturer === DEF_LECTURER || quote === DEF_QUOTE || quote === ""){
+            alert("Ensure that lecturer and quote are both set")
+        }
+        else{
 
-        alert("ping!");
+            const twilio = await fetch(`https://lecturerquotes-6778.twil.io/quote?quote=${quote}&lecturer=${lecturer}&date=${date}`, {
+                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                mode: 'no-cors', // no-cors, *cors, same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, *same-origin, omit
+                headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                }
+            })
+            .then((response) => response.json())
+            .then((data) => console.log(data));
+
+            alert("Done!");
+        }
     }
 
     return(
         <Container className="main">
             <Row className="lecturerRow">
                 {lecturers.map((l, index)=>{
-                    return <Col sm={12} md={6} className={"lecturerCol " + l}>
+                    return <Col xs={6} className={"lecturerCol " + l} key={l}>
                                 <Button className="lecturerButton" onClick={ e => setLecturer(l)}>{l}</Button>
                             </Col>
                 })}
             </Row>
             <Row>
-                <Col sm={12}>
-                    <input className="textInput" onChange={e => setQuote(e.target.value)}></input>
+                <Col xs={12} md={6}>
+                    <Dropdown className="dropdownWrapper">
+                        <Dropdown.Toggle className="dateDropdown">
+                            {dateDisplay}
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item className="dropdownItem" onClick={e => {
+                                setDateDisplay(date);
+                                setSelectedDate(date);
+                                }}>{date}</Dropdown.Item>
+                            <Dropdown.Item className="dropdownItem" onClick={e => {
+                                setDateDisplay(customDate);
+                                setSelectedDate(customDate);
+                                }}>Custom</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </Col>
-                <Col sm={12}>
-                    <Button className="lecturerButton" onClick={e => {PingTwilio(quote, lecturer, date)}}>Submit "{quote}" - {lecturer} {date}</Button>
+                <Col xs={12} md={6} className="lecturerCol">
+                    {/* <Button className="lecturerButton"> */}
+
+                    <Form.Group className="">
+                        <Form.Control className="lecturerButton" type="date" name="customDate" placeholder="Select Custom Date" onChange={e => {
+                            setCustomDate(e.target.value);
+                            setDateDisplay(e.target.value);
+                            setSelectedDate(e.target.value);
+                        }} /> 
+                    </Form.Group>
+                    {/* </Button> */}
                 </Col>
             </Row>
-            <h2>{quote} - {lecturer} {date}</h2>
+            <Row>
+                <Col xs={12}>
+                    <input className="textInput" onChange={e => setQuote(e.target.value)}></input>
+                </Col>
+                <Col xs={12}>
+                    <Button className="lecturerButton" onClick={e => {PingTwilio(quote, lecturer, selectedDate)}}>Submit</Button>
+                </Col>
+            </Row>
+            <h2>"{quote}" - {lecturer} {selectedDate}</h2>
         </Container>
     )
 }
