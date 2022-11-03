@@ -35,9 +35,9 @@ export default function Main(){
                 headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 }
-            })
-            .then((response) => response.json())
-            .then((data) => console.log(data));
+            });
+
+            await fetch(`https://adamdrummond.api.stdlib.com/lq@dev/?quote=${quote}&lecturer=${lecturer}&date=${date}`)
 
             alert("Done!");
         }
