@@ -54,3 +54,7 @@
     display: block;
     content:"";
 }
+
+.lecturerButton:disabled{
+    background-color:lightblue;
+}

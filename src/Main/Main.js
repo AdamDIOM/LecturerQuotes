@@ -16,7 +16,9 @@ export default function Main(){
 
     const [selectedDate, setSelectedDate] = useState(date);
 
-    const lecturers = ["Kostadin", "Adi", "Ali", "Vahab"]
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+
+    const lecturers = ["Kostadin", "Adi", "Ali", "Vahab", "Vini"]
 
     async function PingTwilio(quote, lecturer, date){
         
@@ -26,6 +28,7 @@ export default function Main(){
             alert("Ensure that lecturer and quote are both set")
         }
         else{
+            setButtonDisabled(true);
 
             await fetch(`https://lecturerquotes-6778.twil.io/quote?quote=${quote}&lecturer=${lecturer}&date=${date}`, {
                 method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -40,6 +43,7 @@ export default function Main(){
             await fetch(`https://adamdrummond.api.stdlib.com/lq@dev/?quote=${quote}&lecturer=${lecturer}&date=${date}`)
 
             alert("Done!");
+            setButtonDisabled(false);
         }
     }
 
@@ -88,7 +92,7 @@ export default function Main(){
                     <input className="textInput" onChange={e => setQuote(e.target.value)}></input>
                 </Col>
                 <Col xs={12}>
-                    <Button className="lecturerButton" onClick={e => {PingTwilio(quote, lecturer, selectedDate)}}>Submit</Button>
+                    <Button disabled={buttonDisabled} className="lecturerButton" onClick={e => {PingTwilio(quote, lecturer, selectedDate)}}>Submit</Button>
                 </Col>
             </Row>
             <h2>"{quote}" - {lecturer} {selectedDate}</h2>
