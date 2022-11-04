@@ -1,11 +1,11 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Lecturer Quotes",
+  "name": "Lecturer Quotes",
   "icons": [
     
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "slategray",
+  "background_color": "lightcyan"
 }
