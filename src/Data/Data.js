@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Row } from "react-bootstrap";
 import "./Data.css";
 
@@ -19,16 +19,18 @@ export default function Data(){
                 // });
                 setData(data);
             });
-
+            return true;
     }
 
-getDataFromDB()
+    useEffect(() => {
+        getDataFromDB();
+      }, [])
 
     return(
         <Row className="data">
-            <h1>Data</h1>
+            <h1>Quotes</h1>
             {data.message.map((e) => (
-                <p key={e.index}>{e.fields.Quote} - {e.fields.Lecturer} | {e.fields.Date}</p>
+                <div className="quote" key={e.index}>{e.fields.Quote} - {e.fields.Lecturer} | {e.fields.Date}</div>
             ))}
         </Row>
     )

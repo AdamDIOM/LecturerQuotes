@@ -1,9 +1,25 @@
 .data{
     background-color: lightcyan;
     color:slategray;
-    height:87vh;
+    min-height:87vh;
     /* padding:0px 15px 0px 15px; */
     text-align: center;
     max-width:100vw;
     margin:0;
+}
+
+.quote{
+    display: block;
+    background-color: pink;
+    margin-bottom:10px;
+    font-size:20pt;
+    vertical-align: middle;
+    width:80%;
+    margin-left:10%;
+    filter:drop-shadow(0 0 3px hotpink);
+    border-radius:10px;
+}
+
+.quote:hover{
+    filter:drop-shadow(0 0 5px hotpink);
 }
