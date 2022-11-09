@@ -18,7 +18,7 @@ export default function Main(){
 
     const [buttonDisabled, setButtonDisabled] = useState(false);
 
-    const lecturers = ["Kostadin", "Adi", "Ali", "Vahab", "Vini"]
+    const lecturers = ["Kostadin", "Adi", "Ali", "Vahab", "Vini", "Hannah"]
 
     async function PingTwilio(quote, lecturer, date){
         
